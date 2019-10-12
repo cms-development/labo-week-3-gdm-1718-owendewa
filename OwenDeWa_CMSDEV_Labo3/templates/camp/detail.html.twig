@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello WelcomeController!{% endblock %}
+
+{% block container %}
+    <a href="/nl/detail/{{ camp.id }}">NL</a>
+    <a href="/en/detail/{{ camp.id }}">EN</a>
+    <div class="articleDetail clearfix">
+        <div class="articleDetailimage">
+            <img src="{{ camp.image }}" >
+        </div>
+        <div class="articleDetailtext">
+                <h1>{{ camp.translations[lang].title }}</h1>
+                <br>
+                <h4>{{ camp.translations[lang].quote }}</h4>
+                <br>
+                <p>{{ camp.translations[lang].description }}</p>
+
+            <div class="articleDetailbutton">
+                <button class="like">like</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="comment-container d-inline-block pl-3 align-top">
+            <h3> {{ totalreactions }}
+            {% if totalreactions <= 2 %}
+                reactie
+            {% else %}
+                reacties
+            {% endif %}
+            </h3>
+        <hr>
+        {{ form(form) }}
+        {% for reaction in reactions %}
+            <br>
+            <span class="commenter-name">Naam: {{ reaction.name }}</span>
+            <br>
+            <span class="comment">Reactie: {{ reaction.content }}</span>
+            <br>
+            <span>Geplaatst op: {{ reaction.date|date('m/d/Y H:i:s') }}</span>
+            <br>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        let clicked = localStorage.getItem('liked');
+        console.log(clicked)
+        if(clicked = true){
+            document.querySelector('.like').style.backgroundColor = "green"
+            document.querySelector('.like').style.color = "white"
+            document.querySelector('.like').style.border = "none"
+            document.querySelector('.like').removeEventListener('click', click)
+        }
+        function click(){
+            localStorage.setItem('liked', true);
+        }
+        document.querySelector('.like').addEventListener('click', click);
+
+    </script>
+{% endblock %}

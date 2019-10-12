@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello WelcomeController!{% endblock %}
+
+{% block container %}
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_row(formTrans.title) }}
+        {{ form_row(formTrans.quote) }}
+        {{ form_row(form.date) }}
+        {{ form_row(form.image) }}
+        {{ form_row(formTrans.description) }}
+        {{ form_row(form.watch) }}
+        {{ form_row(formTrans.save) }}
+    {{ form_end(form) }}
+{% endblock %}
